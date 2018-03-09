@@ -26,7 +26,7 @@ const int max_n = 1111;
 int main(){
 	int m,n;
 	double M[max_n] = {0},N[max_n] = {0},sum[max_n] = {0};
-	int e,count = 0;
+	int e,count = 0;  
 	scanf("%d",&m);
 	while(m--){
 		scanf("%d",&e);
@@ -45,7 +45,6 @@ int main(){
 	for (int i = max_n - 1;i >= 0;i--){
 		if (sum[i] != 0) {
 			printf(" %d %.1lf",i,sum[i]);
-			count--;
 		}
 		else continue;
 	}
