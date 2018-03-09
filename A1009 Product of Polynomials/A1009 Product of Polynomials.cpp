@@ -18,34 +18,34 @@
      K1-10，N0-1000
      输出实例：对每一个测试实例，你必须输出A和B的乘积在一行里，用与输入相同的格式
      注意最后一格没有额外的空格，请保留一位小数。*/
-    #include <cstdio>
-    const int max_n = 11111;
-    int main(){
-        int m,n,e;
-        double M[max_n] = {0},N[max_n] = {0},product[2*max_n] = {0};
-        int count = 0;
-        scanf("%d",&m);
-        while(m--){
-            scanf("%d",&e);
-            scanf("%lf",&M[e]);
-        }
-        scanf("%d",&n);
-        while(n--){
-            scanf("%d",&e);
-            scanf("%lf",&N[e]);
-            for (int i = 0;i < max_n;i++){
-                    product[i + e] = product[i + e] + M[i]*N[e];
-                }
-            }
-        for (int i = 0;i < 2*max_n;i++){
-            if (product[i] != 0) count++;
-        }
-        printf("%d",count);
-        for (int i = 2*max_n - 1;i >= 0;i--){
-            if (product[i] != 0) {
-            	printf(" %d %.1lf",i,product[i]);
-			}
-            else continue;
-        }
+#include <cstdio>
+const int max_n = 11111;
+int main(){
+	int m,n,e;
+    double M[max_n] = {0},N[max_n] = {0},product[2*max_n] = {0};
+    int count = 0;
+    scanf("%d",&m);
+    while(m--){
+        scanf("%d",&e);
+        scanf("%lf",&M[e]);
     }
+    scanf("%d",&n);
+    while(n--){
+        scanf("%d",&e);
+        scanf("%lf",&N[e]);
+        for (int i = 0;i < max_n;i++){
+                product[i + e] = product[i + e] + M[i]*N[e];
+            }
+        }
+    for (int i = 0;i < 2*max_n;i++){
+        if (product[i] != 0) count++;
+    }
+    printf("%d",count);
+    for (int i = 2*max_n - 1;i >= 0;i--){
+        if (product[i] != 0) {
+        	printf(" %d %.1lf",i,product[i]);
+		}
+        else continue;
+    } 
+} 
 
