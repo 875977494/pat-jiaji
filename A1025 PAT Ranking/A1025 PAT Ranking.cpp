@@ -17,21 +17,29 @@ The testees with the same score must have the same rank, and the output must be 
 
 翻译：PAT是浙江大学组织的比赛。每一个比赛被要求同时比赛在几个地点，并且在测试之后考试成绩会立刻展出，
 现在你的工作是写一个程序去正确地合并所有的成绩并且输出最终排名。
+
 输入实例：每一个输入文件包含一个测试实例，对每一个实例，第一行包含一个大于零的N（<=100），测试地点的数目。
 N之后，每一个开始的一行包含一个大于零的K，K<=300,考生的数量。并且K行包含注册码(13位数字)和每一个考生的总分。全部的数字用空格分开。
 输出实例：对于每一个测试实例，第一行第一个数字输出考生数量
 然后输出最终排名用接下来的格式  注册码  最终排名  考点号  考点排名
 地点被命名为1——N。输出必须以非降序排列排名。同分考生必须有相同的排名，并且输出必须以他们注册码非降序排列。 
 */
-#include <stdio.h>
-#include <algorithm> 
+#include <cstdio>
+#include <algorithm>
+struct Student{
+	char id[14];
+	int local;
+	int score;
+}S[30001];
+
+bool cmp(){
+	
+}
+
 int main(){
-	int N,i;
+	int N;
 	scanf("%d",&N);
-	int K[100];
-	int loc[300],score[300];
-	for (int i = 0;i < N;i++){
-		scanf("%d",&K[i]);
+	while(N--){
 		
 	}
-} 
+}
