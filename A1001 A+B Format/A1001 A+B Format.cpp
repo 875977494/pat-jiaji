@@ -23,9 +23,8 @@ int main(){
 	int a,b;
 	scanf("%d%d",&a,&b);
 	int c = a + b;
-	int symbol = 0;
 	if (c < 0){
-		symbol = -1;
+		printf("-");
 		c = -1*c; 
 	}
 	vector<char> num;
@@ -35,13 +34,13 @@ int main(){
 		n = c % 10;
 		num.push_back(n);
 		count++;
-		if (count % 3 == 0 && c / 10 != 0) num.push_back('-');
+		if (count % 3 == 0 && c / 10 != 0) num.push_back(',');
 		c = c / 10;
 		if (c == 0) break;
 	}
-	if (symbol == -1){
-		printf("-");
+	for (int i = num.size() - 1; i >= 0;i--){
+		if (num[i] == ',') printf("%c",num[i]);
+		else printf("%d",num[i]);
 	}
-	puts(num);
 	return 0;
 } 
