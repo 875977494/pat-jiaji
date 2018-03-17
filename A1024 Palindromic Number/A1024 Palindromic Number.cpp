@@ -84,7 +84,7 @@ int main(){
 	bign a = change(str);
 	if (Pal(a) == true) {
 		print(a);
-		printf("\n0");
+		printf("0");
 		return 0;
 	}
 	int count = 0;
