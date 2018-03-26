@@ -29,6 +29,10 @@ int main(){
 	for (int i = 0;s[i] != '\0';i++){
 		sum += s[i] - '0';
 	}
+	if (sum == 0) {
+		printf("zero");
+		return 0;
+	}
 	//printf("%d\n",sum);
 	int n;
 	stack<int> spell;
