@@ -25,18 +25,10 @@ Sample Output:
 #include <cstdio>
 #include <vector>
 using namespace std;
-const int Null = -1; 
 struct elevator{
 	int now_floor ;
-	int next_floor; //如果指向Null代表停止 
+	int next_floor; 
 };
-
-void print(vector<elevator> a){
-//	printf("%d",a.size());
-	for (int i = 0;i != a.size();i++){
-		printf("now_floor:%d next_floor:%d\n",a[i].now_floor,a[i].next_floor);
-	}
-}
 
 int time(vector<elevator> a){
 	int t = 0;
@@ -68,7 +60,6 @@ int main(){
 		}
 		a.push_back(temp);
 	}
-	print(a);
 	int t = time(a);
 	printf("%d",t);
 } 
