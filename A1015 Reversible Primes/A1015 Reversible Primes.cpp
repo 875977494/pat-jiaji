@@ -25,87 +25,39 @@ No
 */
 #include <cstdio>
 #include <cmath>
-#include <cstring>
-#include <algorithm>
-#include <vector>
 using namespace std;
-const int maxn = 100010;
-
-bool isPrime(int a){
-	if (a == 0 || a == 1) return false;
-	if (a == 2) return true;
-	for (int i = 2;i <= sqrt(a);i++){
-		if (a % i == 0) return false;
+bool isprime(int n) {
+	if(n <= 1) return false;
+	int sqr = int(sqrt(n * 1.0));
+	for(int i = 2; i <= sqr; i++) {
+		if(n % i == 0)
+			return false;
 	}
 	return true;
-} 
-
-int change_10(char s[],int d){  //将任意进制的字符数字转换为十进制 
-	int len = strlen(s);
-	int num = 0;
-	for (int i = len - 1;i >= 0;i--){
-		num += pow(d,len - i - 1) * (s[i] - '0');
-	} 
-	return num;
 }
-
-int change_10(vector<char> s,int d){  //将任意进制的字符数字转换为十进制  重载 
-	int num = 0;
-	int len = s.size();
-	for (int i = len - 1;i >= 0;i--){
-		num += pow(d,len - i - 1) * (s[i] - '0');
-	} 
-	return num;
-}
-
-vector<char> change_S(char S[],int d){  //将十进制转换为任意数字 
-	int num = change_10(S,10);
-	vector<char> s;
-	char c;
-	for (int i = 0;;i++){
-		c = num % d;
-		s.push_back(c);
-		num = num / d;
-		if (num == 0) break;
-	}
-//	reverse(s.begin(),s.end());
-	return s;
-} 
-
-void print(vector<char> s){
-	for (int i = 0;i != s.size();i++){
-		printf("%d",s[i]);
-	}
-}
-
-int main(){
-	int D;
-	char s[maxn];
-	while(1){
-		scanf("%s %d",s,&D);
-		if (s[0] == '-') return 0;
-		int len = strlen(s);   //现在简化一下程序，把num1整体提前 ,然后整体加上循环
-		int num1 = change_10(s,10);
-		if (isPrime(num1) == false) {
+int main() {
+	int n, d;
+	while(scanf("%d", &n) != EOF) {
+		if(n < 0) break;
+		scanf("%d", &d);
+		if(isprime(n) == false) {
 			printf("No\n");
-		}else {
-			if (D == 10){
-				reverse(s,s + len);
-				int num2 = change_10(s,D);
-				if (isPrime(num2) == true) printf("Yes\n");
-				else printf("No\n");
-			}else {  //如果D不是10，先看这个数字是不是素数，如果不是则直接输出no，如果是素数，就转换为D进制，翻转，再转换为10进制，看是否是素数，如果是输出yes 
-				int num1 = change_10(s,D);
-				if (isPrime(num1) == false) printf("No\n"); 
-				else {
-					vector<char> S = change_S(s,D);
-					int num2 = change_10(S,10);
-					if (isPrime(num2) == true) 	printf("Yes\n");
-					else printf("No\n");
-				}
-			}	
+			continue;
+		}
+		int len = 0;
+		int arr[100];
+		do{
+			arr[len++] = n % d;
+			n = n / d;
+		}while(n != 0);
+		for(int i = 0; i < len; i++) {
+			n = n * d + arr[i];
+		}
+		if(isprime(n) == false) {
+			printf("No\n");
+		} else {
+			printf("Yes\n");
 		}
 	}
 	return 0;
-} 
-
+}
