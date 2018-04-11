@@ -48,92 +48,31 @@ Sample Output
 N/A
 */
 #include <cstdio>
-#include <cstring>
+#include <cmath>
 #include <vector>
 #include <algorithm>
 using namespace std;
+int num;
 struct student{
 	int id;
-	int C;
-	int M;
-	int E;
-	int A;
-}; 
-bool cmp_a(student a,student b){
-	return a.A > b.A;
-}
-bool cmp_c(student a,student b){
-	return a.C > b.C;
-}
-bool cmp_m(student a,student b){
-	return a.M > b.M;
-}
-bool cmp_e(student a,student b){
-	return a.E > b.E;
+	int score[4];
+	int rank[4];
+};
+
+bool cmp(student a,student b){
+	return a.score[num] > b.score[num];
 }
 
-char Max(student s){
-	int c,m,e,a;
-	c = s.C;       // A > C > M > E
-	m = s.M;
-	e = s.E;
-	a = s.A;
-	if (a >= m && a >= c && a >= e) return 'A';
-	else if (c >= a && c >= e && c >= m) return 'C';
-	else if (m >= a && m >= c && m >= e) return 'M';
-	else return 'E';
+bool cmp2(student a,student b){
+	return a.id < b.id;
 }
 
-int Get_a_rank(vector<student> a,student b){
-	int rank;
-	int score = b.A;
-	vector<student> temp = a;
-	sort(temp.begin(),temp.end(),cmp_a);
-	for (int i = 0;i != temp.size();i++){
-		if (temp[i].A == score){
-			rank = i + 1;
-			return rank;
-		}
+int getmin(int s[]){
+	int flag = 0;
+	for (int i = 0;i < 4;i++){
+		if (s[i] < s[flag]) flag = i;
 	}
-}
-
-int Get_c_rank(vector<student> a,student b){
-	int rank;
-	int score = b.C;
-	vector<student> temp = a;
-	sort(temp.begin(),temp.end(),cmp_c);
-	for (int i = 0;i != temp.size();i++){
-		if (temp[i].C == score){
-			rank = i + 1;
-			return rank;
-		}
-	}
-}
-
-int Get_m_rank(vector<student> a,student b){
-	int rank;
-	int score = b.M;
-	vector<student> temp = a;
-	sort(temp.begin(),temp.end(),cmp_m);
-	for (int i = 0;i != temp.size();i++){
-		if (temp[i].M == score){
-			rank = i + 1;
-			return rank;
-		}
-	}
-}
-
-int Get_e_rank(vector<student> a,student b){
-	int rank;
-	int score = b.E;
-	vector<student> temp = a;
-	sort(temp.begin(),temp.end(),cmp_e);
-	for (int i = 0;i != temp.size();i++){
-		if (temp[i].E == score){
-			rank = i + 1;
-			return rank;
-		}
-	}
+	return flag;
 }
 int main(){
 	int N,M;
@@ -141,39 +80,42 @@ int main(){
 	vector<student> s;
 	while(N--){
 		student temp;
-		scanf("%d%d%d%d",&temp.id,&temp.C,&temp.M,&temp.E);
-		temp.A = (temp.C + temp.M + temp.E) / 3;
-		if ((temp.C + temp.M + temp.E) % 3 > 1) temp.A++;
+		scanf("%d%d%d%d",&temp.id,&temp.score[1],&temp.score[2],&temp.score[3]);
+		temp.score[0] = temp.score[3] + temp.score[1] + temp.score[2];
 		s.push_back(temp);
 	}
+	//≈≈Àƒ¥Œ–Ú
+	for (num = 0;num < 4;num++){
+		sort(s.begin(),s.end(),cmp);
+		for (int j = 0;j != s.size();j++){
+			if (j != 0 && s[j].score[num] == s[j - 1].score[num]) s[j].rank[num] = j;
+			else s[j].rank[num] = j + 1;
+		}
+	}
+//	sort(s.begin(),s.end(),cmp2);
+//	for (int i = 0;i != s.size();i++){
+//		printf("%d %d %d %d %d %d\n",s[i].id,s[i].rank[0],s[i].rank[1],s[i].rank[2],s[i].rank[3],getmin(s[i].rank));
+//	}
 	while(M--){
 		int temp;
-		int count = 0;
 		scanf("%d",&temp);
-		for (int i = 0; i != s.size();i++){
-			if (s[i].id == temp){
-				char a = Max(s[i]);
-				int rank;
-				if (a == 'A'){
-					rank = Get_a_rank(s,s[i]);
-					printf("%d A\n",rank);
-					break;
-				}else if (a == 'C'){
-					rank = Get_c_rank(s,s[i]);
-					printf("%d C\n",rank);
-					break;
-				}else if (a == 'M'){
-					rank = Get_m_rank(s,s[i]);
-					printf("%d M\n",rank);
-					break;
-				}else if (a == 'E'){
-					rank = Get_e_rank(s,s[i]);
-					printf("%d E\n",rank);
-					break;
+		int count = 0;
+		for (int i = 0;i < s.size();i++){
+			if (temp == s[i].id) {
+				int flag = getmin(s[i].rank);
+				if (flag == 0) {
+					printf("%d A\n",s[i].rank[0]);
 				}
-			}else count++;
-			if (count == s.size()) printf("N/A\n");
-			count = 0;
-		}	
+				else if (flag == 1) printf("%d C\n",s[i].rank[1]);
+				else if (flag == 2) printf("%d M\n",s[i].rank[2]);
+				else if (flag == 3) printf("%d E\n",s[i].rank[3]);
+			}else {
+				count++;
+				continue;
+			}
+			
+		}
+		if (count == s.size()) printf("N/A\n");
+		count = 0;
 	}
-} 
+}
